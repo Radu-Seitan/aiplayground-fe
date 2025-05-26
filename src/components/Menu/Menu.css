@@ -1,0 +1,24 @@
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  background-color: hsla(304, 66%, 34%, 0.671);
+  color: #fff;
+}
+
+.menu-drawer {
+  width: 10rem;
+}
+
+.menu-title {
+  text-align: center;
+  padding: 1rem;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.menu-logo-image {
+  height: 4rem;
+}
