@@ -1,0 +1,10 @@
+.edit-scope-modal-actions {
+  justify-content: center !important;
+}
+
+.edit-scope-modal-content {
+  padding: 1rem !important;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}

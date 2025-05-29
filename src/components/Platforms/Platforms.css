@@ -1,0 +1,9 @@
+.platforms-card {
+  border-radius: 2rem !important;
+  box-shadow: 0 4px 20px rgba(142, 29, 134, 0.45) !important;
+}
+
+.platforms-card-media {
+  object-fit: contain !important;
+  background-color: #fafafa;
+}
