@@ -24,6 +24,7 @@ import "./Scopes.css";
 import { Scope } from "../shared/types/Scope";
 import { ScopesApiClient } from "../../api/Clients/ScopesApiClient";
 import { ScopeModel } from "../../api/Models/ScopeModel";
+import { DeletePopup } from "../common/DeletePopup";
 
 export const Scopes: FC = () => {
   const [scopes, setScopes] = useState<Scope[]>([]);
@@ -37,6 +38,9 @@ export const Scopes: FC = () => {
   const [openEditPopup, setOpenEditPopup] = useState(false);
   const handleOpenEditPopup = () => setOpenEditPopup(true);
   const handleCloseEditPopup = () => setOpenEditPopup(false);
+
+  const [scopeToDelete, setScopeToDelete] = useState<Scope>();
+  const [openDeletePopup, setOpenDeletePopup] = useState(false);
 
   const columns = [
     {
@@ -96,7 +100,8 @@ export const Scopes: FC = () => {
         </IconButton>
         <IconButton
           onClick={() => {
-            deleteScope(scope);
+            setScopeToDelete(scope);
+            setOpenDeletePopup(true);
           }}
         >
           <DeleteIcon color="primary" fontSize="large" />
@@ -174,6 +179,21 @@ export const Scopes: FC = () => {
           editableScope={editableScope}
         />
       )}
+      <DeletePopup
+        entityTitle={scopeToDelete?.name ?? "Unknown"}
+        open={openDeletePopup}
+        onClose={() => {
+          setOpenDeletePopup(false);
+          setScopeToDelete(undefined);
+        }}
+        onConfirm={() => {
+          if (scopeToDelete) {
+            deleteScope(scopeToDelete);
+          }
+          setOpenDeletePopup(false);
+          setScopeToDelete(undefined);
+        }}
+      />
     </Box>
   );
 };
