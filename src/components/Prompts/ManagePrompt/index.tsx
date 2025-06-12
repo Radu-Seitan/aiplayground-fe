@@ -17,6 +17,7 @@ import { ScopesApiClient } from "../../../api/Clients/ScopesApiClient";
 import { ScopeModel } from "../../../api/Models/ScopeModel";
 import { PromptsApiClient } from "../../../api/Clients/PromptsApiClient";
 import { PromptCreateModel } from "../../../api/Models/PromptCreateModel";
+import { RunConfiguration } from "../RunConfiguration";
 
 const DEFAULT_PROMPT: Prompt = {
   id: undefined,
@@ -253,6 +254,7 @@ export const ManagePrompt: FC = () => {
           </Button>
         </Stack>
       )}
+      {id && <RunConfiguration />}
     </Box>
   );
 };

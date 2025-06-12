@@ -42,6 +42,7 @@ export const Platforms: FC = () => {
               id: model.id!,
               name: model.name,
               averageRating: model.averageRating,
+              averageUserRating: model.averageUserRating,
             })
           ),
         })
