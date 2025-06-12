@@ -20,12 +20,15 @@ import { Prompt } from "../shared/types/Prompt";
 import { PromptsApiClient } from "../../api/Clients/PromptsApiClient";
 import { PromptModel } from "../../api/Models/PromptModel";
 import { DeletePopup } from "../common/DeletePopup";
+import { useNavigate } from "react-router-dom";
 
 export const Prompts: FC = () => {
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [openDeletePopup, setOpenDeletePopup] = useState<boolean>(false);
   const [promptToDelete, setPromptToDelete] = useState<Prompt>();
+
+  const navigate = useNavigate();
 
   const columns = [
     {
@@ -70,21 +73,23 @@ export const Prompts: FC = () => {
     }
   };
 
-  const deletePrompt = async (prompt: Prompt) => {
+  const deletePrompt = async (promptToDelete: Prompt) => {
     try {
-      if (!prompt.id) {
+      if (!promptToDelete.id) {
         return;
       }
 
-      await PromptsApiClient.deleteOneAsync(prompt.id);
+      await PromptsApiClient.deleteOneAsync(promptToDelete.id);
 
-      setPrompts(prompts.filter((prompt) => prompt.id !== prompt.id));
+      setPrompts(prompts.filter((p) => p.id !== promptToDelete.id));
     } catch (error: any) {
       console.log(error);
     }
   };
 
-  const handleCreatePrompt = () => {};
+  const handleCreatePrompt = () => {
+    navigate("/prompts/create");
+  };
 
   const renderActions = (prompt: Prompt) => {
     return (
@@ -121,7 +126,16 @@ export const Prompts: FC = () => {
               {prompts && prompts.length ? (
                 <>
                   {prompts.map((prompt: Prompt, index: number) => (
-                    <TableRow key={index} className={"prompts-table-row"}>
+                    <TableRow
+                      key={index}
+                      className={"prompts-table-row"}
+                      onDoubleClick={() =>
+                        navigate(`/prompts/view/${prompt.id}`)
+                      }
+                      sx={{
+                        cursor: "pointer",
+                      }}
+                    >
                       <TableCell align="center">{prompt.id}</TableCell>
                       <TableCell align="center">{prompt.name}</TableCell>
                       <TableCell align="center">
